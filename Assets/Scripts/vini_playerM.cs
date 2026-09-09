@@ -1,0 +1,49 @@
+using UnityEngine;
+
+public class vini_playerM : MonoBehaviour
+{
+    [Header("Movimento")]
+    public float velocidade = 5f;
+    public float forcaPulo = 6f;
+
+    private Rigidbody rb;
+    private bool nochao;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetButtonDown("Jump") && nochao) ;
+        {
+            rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        float h = Input.GetAxis("Horizontal");
+        float v = Input.GetAxis("vertical");
+
+        Vector3 direcao = new Vector3 (h, 0f, v) * velocidade;
+        direcao.y= rb.linearVelocity.y;
+
+
+        rb.linearVelocity = direcao;
+
+            }
+
+    private void OnCollisionStay(Collision colisao)
+    {
+        if(colisao.gameObject.CompareTag("Chao"))
+        {
+            nochao= true;
+        }
+    }
+}
+
+
