@@ -18,7 +18,7 @@ public class vini_playerM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && nochao) ;
+        if (Input.GetButtonDown("Jump") && nochao) 
         {
             rb.AddForce(Vector3.up * forcaPulo, ForceMode.Impulse);
         }
@@ -42,6 +42,14 @@ public class vini_playerM : MonoBehaviour
         if(colisao.gameObject.CompareTag("Chao"))
         {
             nochao= true;
+        }
+    }
+
+    private void OnCollisionExit(Collision colisao)
+    {
+        if(colisao.gameObject.CompareTag("Chao"))
+        {
+            nochao= false;
         }
     }
 }
